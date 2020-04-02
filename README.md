@@ -9,7 +9,10 @@ Nesse tutorial assumimos que você já possui um projeto Android e também um mo
 Se você precisar de um projeto Android de demonstração veja este site [Exemplos para Android com Tensorflow](https://github.com/tensorflow/examples/blob/master/lite/examples/image_classification/android/README.md). Se você ainda não converteu seu modelo do Keras ou Tensorflow para o Tensorflow Lite veja este site para a versão 2.x [Convertsor TF Lite 2.x](https://www.tensorflow.org/lite/convert) ou este para versões do TF 1.x [Conversor TF Lite 1.x](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/lite/g3doc/r1/convert/python_api.md).
 
 ### Requisitos
- 
 Para seguir com a compilação corretamente você precisará dos arquivos e versões a seguir:
+#### windows
+* Git bash ou MSYS64
+* Bazel 2.0.0 [aqui](https://docs.bazel.build/versions/master/install-windows.html) Siga os passos no site.
+* Visual C++ Redistributable for Visual Studio 2015 [aqui](https://www.microsoft.com/en-us/download/details.aspx?id=48145)
+* Tensorflow 1.14.0
 
-* 
