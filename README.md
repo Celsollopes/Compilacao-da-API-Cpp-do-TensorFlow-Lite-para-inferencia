@@ -96,7 +96,7 @@ Em versões anteriores do Tensorflow o caminho para o diretório .```/lite``` po
 
 ### 6. Criando a biblioteca
 Agora podemos criar o arquivo ```libtensorflowLite.so``` gerado pela compilação.
-Execute o comando abaixo a partir do diretório root do seu tensorflow
+Execute os comandos a seguir no seu ```bash``` a partir do diretório root do seu tensorflow. !(*Não faça isso pelo prompt do windows!*)
 ```$ cd tensorflow ```
 
 ```$ bazel build //tensorflow/lite:libtensorflowLite.so --crosstool_top=//external:android/crosstool --cpu=arm64-v8a --host_crosstool_top=@bazel_tools//tools/cpp:toolchain --cxxopt="-std=c++11"```
