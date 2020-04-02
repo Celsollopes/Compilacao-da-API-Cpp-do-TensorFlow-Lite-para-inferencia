@@ -11,8 +11,12 @@ Se você precisar de um projeto Android de demonstração veja este site [Exempl
 ### Requisitos
 Para seguir com a compilação corretamente você precisará dos arquivos e versões a seguir:
 #### windows
+* Python 3.6
 * Git bash ou MSYS64
-* Bazel 2.0.0 [aqui](https://docs.bazel.build/versions/master/install-windows.html) Siga os passos no site.
+* Bazel 2.0.0 - Siga os passos no site [aqui](https://docs.bazel.build/versions/master/install-windows.html).
 * Visual C++ Redistributable for Visual Studio 2015 [aqui](https://www.microsoft.com/en-us/download/details.aspx?id=48145)
 * Tensorflow 1.14.0
+
+### Instalação
+Clone o repositório oficial do Tensorflow v1.14.0 [obtido aqui](https://github.com/tensorflow/tensorflow/releases/tag/v1.14.0). Se você clonar sem especificar a versão, será feito o clone da vesão mais recente na ```brach master``` do tensorflow. Logo, especifique a brach da versão 1.14.0 ``` git checkout branch_name # r1.9, r1.10, etc.``` ou siga direto por [aqui](https://github.com/tensorflow/tensorflow/releases/tag/v1.14.0).
 
