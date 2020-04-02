@@ -22,7 +22,7 @@ __1__. Instale o ```Bazel``` seguindo as instruções do site oficial [aqui](htt
 
 __2__. Clone o repositório oficial do Tensorflow v1.14.0 [obtido aqui](https://github.com/tensorflow/tensorflow/releases/tag/v1.14.0). Se você clonar sem especificar a versão, será feito o clone da vesão mais recente na ```brach master``` do tensorflow 2.x. Logo, especifique a brach da versão 1.14.0 dando ```checkout``` como no exemplo(``` git checkout branch_name # r1.9, r1.10, etc.```) ou siga direto por [aqui](https://github.com/tensorflow/tensorflow/releases/tag/v1.14.0).
 
-3. Acesse o diretório root do tensorflow e edite o arquivo ```WORKSPACE``` adicionando no final do arquivo as linhas do script abaixo. Altere os ```path``` do SDK e NDK de acordo com a sua arvore de diretórios. Observe que a ```api_level``` está configurada para ```api_level=18```. 
+__3__. Acesse o diretório root do tensorflow e edite o arquivo ```WORKSPACE``` adicionando no final do arquivo as linhas do script abaixo. Altere os ```path``` do SDK e NDK de acordo com a sua arvore de diretórios. Observe que a ```api_level``` está configurada para ```api_level=18```. 
 ```
 android_sdk_repository(
    name = "androidsdk",
@@ -37,7 +37,8 @@ android_ndk_repository(
    api_level=18
 )
 ```
-4. Agora faça a configuração do arquivo ```configure``` para que o bazel siga as instruções. Em um terminal ```bash.exe``` (Git bash, MSYS, MingGW) execulte 
+__4__. 
+Agora faça a configuração do arquivo ```configure``` para que o bazel siga as instruções. Em um terminal ```bash.exe``` (Git bash, MSYS, MingGW) execulte 
 
 ```./configure``` ou
 ```python configure.py``` ou
@@ -68,7 +69,8 @@ CUDA support will be enabled for TensorFlow.
 * Para suporte apenas com CPU selecione 
 ```Do you wish to build TensorFlow with CUDA support? N```
 
-5. Após a configuração, siga para o diretório ```tensorflow/tensorflow/lite/``` e edite o arquivo ```BUILD```, adicioine as linhas de código abaixo ao final do arquivo:
+__5__.
+Após a configuração, siga para o diretório ```tensorflow/tensorflow/lite/``` e edite o arquivo ```BUILD```, adicioine as linhas de código abaixo ao final do arquivo:
 ```
 cc_binary (
 
@@ -86,7 +88,8 @@ deps = [
 )
 ```
 
-6. Agora podemos cria o(s) arquivos(s) ```libtensorflowLite.so``` gerado pela compilação.
+__6__. 
+Agora podemos cria o(s) arquivos(s) ```libtensorflowLite.so``` gerado pela compilação.
 Execute o comando abaixo a partir do diretório root do seu tensorflow
 ```$ cd tensorflow ```
 
