@@ -100,13 +100,14 @@ Execute o comando abaixo a partir do diretório root do seu tensorflow
 
 O comando acima irá compilar o arquivo para a arquiterura ```arm64-v8a```, se você precisar compilar para outras arquiteturas basta alterar o ```--cpu=arm64-8a``` para a arquitetura desejada como ```--cpu=x86_64``` por exemplo.
 
-Quando executei o comando acima em minha máquina, recebi um erro referente a existência do arquivo ```.bazelrc```. Tive que deletar esse arquivo, e executer novamento o passo __4__ para configuração do arquivo ```configure``` novamente. Com isso o bazel cria um novo arquivo. Você pode encontrar o arquivo ```.tf_configure.bazelrc```.
+Quando executei o comando acima em minha máquina, recebi um erro referente a existência do arquivo ```.bazelrc```. Tive que deletar esse arquivo, e executer novamento o passo __4__ para configuração do arquivo ```configure```. Com isso o bazel cria um novo arquivo. Você pode encontrar o arquivo ```.tf_configure.bazelrc```.
 
 Depois que o comando for concluído com sucesso, você encontrará o ```libtensorflowLite.so``` no diretório ```bazel-out``` como um atalho/alias para ```bazel-out/arm64-v8a/bin/tensorflow/lite/``` no diretório root do seu repositório Tensorflow.
 
 __7__.
 Edite o arquivo CMakeList.txt do seu projeto do Android Studio e adicione as seguintes linhas:
 ```
+# Teste
 set(pathToTensorflowLite /Users/xxxx/xxxxx/libraries/tensorflow/distribution)
 
 add_library(libtensorflowLite SHARED IMPORTED)
@@ -121,4 +122,4 @@ target_link_libraries( native-lib
                        libtensorflowLite
                        ${log-lib} )
 ```
-*Você pode encontrar uma ótima explicaçã desse arquivo em [aqui](https://stackoverflow.com/questions/49834875/problems-with-using-tensorflow-lite-c-api-in-android-studio-project)*
+*Você pode encontrar uma ótima explicaçã desse arquivo [aqui](https://stackoverflow.com/questions/49834875/problems-with-using-tensorflow-lite-c-api-in-android-studio-project)*
