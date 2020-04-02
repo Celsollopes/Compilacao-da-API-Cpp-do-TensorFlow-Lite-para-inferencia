@@ -171,6 +171,10 @@ Esses foram os passos necessários para fazer a compilação da biblioteca libte
 Mais informações podem ser encontradas nos links:
 
 [tensorflow.org](https://www.tensorflow.org/lite/guide/inference)
+
 [stackoverflow](https://stackoverflow.com/questions/49834875/problems-with-using-tensorflow-lite-c-api-in-android-studio-project)
+
 [zimenglyu](https://zimenglyu.com/en/ml/android/tensorflow/2018/11/27/tflite-android-ndk-eng.html)
+
 [stackoverflow](https://stackoverflow.com/questions/56837288/tensorflow-lite-c-api-example-for-inference)
+
