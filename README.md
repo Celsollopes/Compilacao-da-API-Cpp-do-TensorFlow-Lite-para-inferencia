@@ -18,11 +18,14 @@ Para seguir com a compilação corretamente você precisará dos arquivos e vers
 * Tensorflow 1.14.0
 
 ### Instalação
-__1__. Instale o ```Bazel``` seguindo as instruções do site oficial [aqui](https://docs.bazel.build/versions/master/install-windows.html). Nesse site também é explicado a instalçao e configuração do ```MSYS64```.
+__1__. 
+Instale o ```Bazel``` seguindo as instruções do site oficial [aqui](https://docs.bazel.build/versions/master/install-windows.html). Nesse site também é explicado a instalçao e configuração do ```MSYS64```.
 
-__2__. Clone o repositório oficial do Tensorflow v1.14.0 [obtido aqui](https://github.com/tensorflow/tensorflow/releases/tag/v1.14.0). Se você clonar sem especificar a versão, será feito o clone da vesão mais recente na ```brach master``` do tensorflow 2.x. Logo, especifique a brach da versão 1.14.0 dando ```checkout``` como no exemplo(``` git checkout branch_name # r1.9, r1.10, etc.```) ou siga direto por [aqui](https://github.com/tensorflow/tensorflow/releases/tag/v1.14.0).
+__2__. 
+Clone o repositório oficial do Tensorflow v1.14.0 [obtido aqui](https://github.com/tensorflow/tensorflow/releases/tag/v1.14.0). Se você clonar sem especificar a versão, será feito o clone da vesão mais recente na ```brach master``` do tensorflow 2.x. Logo, especifique a brach da versão 1.14.0 dando ```checkout``` como no exemplo(``` git checkout branch_name # r1.9, r1.10, etc.```) ou siga direto por [aqui](https://github.com/tensorflow/tensorflow/releases/tag/v1.14.0).
 
-__3__. Acesse o diretório root do tensorflow e edite o arquivo ```WORKSPACE``` adicionando no final do arquivo as linhas do script abaixo. Altere os ```path``` do SDK e NDK de acordo com a sua arvore de diretórios. Observe que a ```api_level``` está configurada para ```api_level=18```. 
+__3__. 
+Acesse o diretório root do tensorflow e edite o arquivo ```WORKSPACE``` adicionando no final do arquivo as linhas do script abaixo. Altere os ```path``` do SDK e NDK de acordo com a sua arvore de diretórios. Observe que a ```api_level``` está configurada para ```api_level=18```. 
 ```
 android_sdk_repository(
    name = "androidsdk",
@@ -87,14 +90,35 @@ deps = [
 ],
 )
 ```
-
+Em versões anteriores do Tensorflow o caminho para o diretório .```/lite``` pode ser encontrado em ```tensorflow/tensorflow/contrib/lite```.
 __6__. 
-Agora podemos cria o(s) arquivos(s) ```libtensorflowLite.so``` gerado pela compilação.
+Agora podemos cria o arquivos ```libtensorflowLite.so``` gerado pela compilação.
 Execute o comando abaixo a partir do diretório root do seu tensorflow
 ```$ cd tensorflow ```
 
 ```$ bazel build //tensorflow/lite:libtensorflowLite.so --crosstool_top=//external:android/crosstool --cpu=arm64-v8a --host_crosstool_top=@bazel_tools//tools/cpp:toolchain --cxxopt="-std=c++11"```
 
-O comando acima irá comilar o arquivo para a arquiterura ```arm64-v8a```, se voce precisar compilar para outras arquiteturas basta alterar o ```--cpu=arm64-8a``` para a arquitetura desejada como ```--cpu=x86_64``` por exemplo.
+O comando acima irá compilar o arquivo para a arquiterura ```arm64-v8a```, se você precisar compilar para outras arquiteturas basta alterar o ```--cpu=arm64-8a``` para a arquitetura desejada como ```--cpu=x86_64``` por exemplo.
 
-Quando executei o comando acima em minha máquina, recebi um erro referente a existência do arquivo ```.bazelrc```. Tive que deletar esse arquivo, e executer novamento o passo de configuração do arquivo ```configure``` com isso o bazel irá criar um novo arquivo. Você pode encontrar o arquivo ```.tf_configure.bazelrc```.
+Quando executei o comando acima em minha máquina, recebi um erro referente a existência do arquivo ```.bazelrc```. Tive que deletar esse arquivo, e executer novamento o passo __4__ para configuração do arquivo ```configure``` novamente. Com isso o bazel cria um novo arquivo. Você pode encontrar o arquivo ```.tf_configure.bazelrc```.
+
+Depois que o comando for concluído com sucesso, você encontrará o ```libtensorflowLite.so``` no diretório ```bazel-out``` como um atalho/alias para ```bazel-out/arm64-v8a/bin/tensorflow/lite/``` no diretório root do seu repositório Tensorflow.
+
+__7__.
+Edite o arquivo CMakeList.txt do seu projeto do Android Studio e adicione as seguintes linhas:
+```
+set(pathToTensorflowLite /Users/xxxx/xxxxx/libraries/tensorflow/distribution)
+
+add_library(libtensorflowLite SHARED IMPORTED)
+
+set_target_properties(libtensorflowLite PROPERTIES IMPORTED_LOCATION
+    ${pathToTensorflowLite}/lib/${ANDROID_ABI}/libtensorflowLite.so)
+
+target_include_directories(native-lib PRIVATE
+            ${pathToTensorflowLite}/include)
+
+target_link_libraries( native-lib
+                       libtensorflowLite
+                       ${log-lib} )
+```
+*Você pode encontrar uma ótima explicaçã desse arquivo em [aqui](https://stackoverflow.com/questions/49834875/problems-with-using-tensorflow-lite-c-api-in-android-studio-project)*
