@@ -39,7 +39,7 @@ android_ndk_repository(
 ```
 Agora faça a configuração do arquivo ```configure``` para que o bazel siga as instruções. Em um terminal ```bash.exe``` (Git bash, MSYS, MingGW) execulte ```python configure.py``` ou ```python3 configure.py```. Em seguida será solicitado algumas informação de confimação, faça como no exemplo abaixo:
 
-#### Com suporte para GPU NVIDIA
+* Com suporte para GPU NVIDIA
 ```
 Please specify the location of python. [Default is X:\ProgramFiles\Python3\python.exe]:
 
@@ -56,10 +56,9 @@ No ROCm support will be enabled for TensorFlow.
 Do you wish to build TensorFlow with CUDA support? [y/N]: Y
 CUDA support will be enabled for TensorFlow.
 
-Please note that each additional compute capability significantly increases your build time and binary size, and that TensorFlow 
-only supports compute capabilities >= 3.5 [Default is: 3.5,7.0]: 7.0
+...TensorFlow only supports compute capabilities >= 3.5 [Default is: 3.5,7.0]: 7.0
 
-
-Please specify optimization flags to use during compilation when bazel option "--config=opt" is specified [Default is /arch:AVX          ]:
+specify optimization flags to use during compilation when bazel option "--config=opt" is specified [Default is /arch:AVX]:
 ```
-#### Para suporte apenas com CPU selecione ```Do you wish to build TensorFlow with CUDA support? N```.
+* Para suporte apenas com CPU selecione 
+```Do you wish to build TensorFlow with CUDA support? N```
