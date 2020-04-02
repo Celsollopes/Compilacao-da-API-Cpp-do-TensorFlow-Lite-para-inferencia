@@ -13,16 +13,16 @@ Para seguir com a compilação corretamente você precisará dos arquivos e vers
 #### windows
 * Python 3.6
 * Git bash ou MSYS64
-* Bazel 2.0.0 - Siga os passos no site [aqui](https://docs.bazel.build/versions/master/install-windows.html).
-* Visual C++ Redistributable for Visual Studio 2015 [aqui](https://www.microsoft.com/en-us/download/details.aspx?id=48145)
+* [Bazel 2.0.0] - Siga os passos no site(https://docs.bazel.build/versions/master/install-windows.html).
+* [Visual C++ Redistributable for Visual Studio 2015](https://www.microsoft.com/en-us/download/details.aspx?id=48145)
 * Tensorflow 1.14.0
 
 ### Instalação
-Instale o ```Bazel``` seguindo as instruções do site oficial [aqui](https://docs.bazel.build/versions/master/install-windows.html). Nesse site também é explicado a instalçao e configuração do ```MSYS64```.
+1. Instale o ```Bazel``` seguindo as instruções do site oficial [aqui](https://docs.bazel.build/versions/master/install-windows.html). Nesse site também é explicado a instalçao e configuração do ```MSYS64```.
 
-Clone o repositório oficial do Tensorflow v1.14.0 [obtido aqui](https://github.com/tensorflow/tensorflow/releases/tag/v1.14.0). Se você clonar sem especificar a versão, será feito o clone da vesão mais recente na ```brach master``` do tensorflow 2.x. Logo, especifique a brach da versão 1.14.0 dando ```checkout``` como no exemplo(``` git checkout branch_name # r1.9, r1.10, etc.```) ou siga direto por [aqui](https://github.com/tensorflow/tensorflow/releases/tag/v1.14.0).
+2. Clone o repositório oficial do Tensorflow v1.14.0 [obtido aqui](https://github.com/tensorflow/tensorflow/releases/tag/v1.14.0). Se você clonar sem especificar a versão, será feito o clone da vesão mais recente na ```brach master``` do tensorflow 2.x. Logo, especifique a brach da versão 1.14.0 dando ```checkout``` como no exemplo(``` git checkout branch_name # r1.9, r1.10, etc.```) ou siga direto por [aqui](https://github.com/tensorflow/tensorflow/releases/tag/v1.14.0).
 
-Acesse o diretório root do tensorflow e edite o arquivo ```WORKSPACE``` adicionando no final do arquivo as linhas do script abaixo. Altere os ```path``` do SDK e NDK de acordo com a sua arvore de diretórios. Observe que a ```api_level``` está configurada para ```api_level=18```. 
+3. Acesse o diretório root do tensorflow e edite o arquivo ```WORKSPACE``` adicionando no final do arquivo as linhas do script abaixo. Altere os ```path``` do SDK e NDK de acordo com a sua arvore de diretórios. Observe que a ```api_level``` está configurada para ```api_level=18```. 
 ```
 android_sdk_repository(
    name = "androidsdk",
@@ -37,8 +37,13 @@ android_ndk_repository(
    api_level=18
 )
 ```
-Agora faça a configuração do arquivo ```configure``` para que o bazel siga as instruções. Em um terminal ```bash.exe``` (Git bash, MSYS, MingGW) execulte ```python configure.py``` ou ```python3 configure.py```. Em seguida será solicitado algumas informação de confimação, faça como no exemplo abaixo:
+4. Agora faça a configuração do arquivo ```configure``` para que o bazel siga as instruções. Em um terminal ```bash.exe``` (Git bash, MSYS, MingGW) execulte 
 
+```./configure``` ou
+```python configure.py``` ou
+```python3 configure.py``` 
+
+Em seguida será solicitado algumas informação de confimação, faça como no exemplo abaixo:
 * Com suporte para GPU
 ```
 Please specify the location of python. [Default is X:\ProgramFiles\Python3\python.exe]:
@@ -62,3 +67,31 @@ CUDA support will be enabled for TensorFlow.
 ```
 * Para suporte apenas com CPU selecione 
 ```Do you wish to build TensorFlow with CUDA support? N```
+
+5. Após a configuração, siga para o diretório ```tensorflow/tensorflow/lite/``` e edite o arquivo ```BUILD```, adicioine as linhas de código abaixo ao final do arquivo:
+```
+cc_binary (
+
+name = "libtensorflowLite.so",
+linkopts=[
+    "-shared", 
+    "-Wl,-soname=libtensorflowLite.so",
+],
+linkshared = 1,
+copts = tflite_copts(),
+deps = [
+    ":framework",
+    "//tensorflow/lite/kernels:builtin_ops",
+],
+)
+```
+
+6. Agora podemos cria o(s) arquivos(s) ```libtensorflowLite.so``` gerado pela compilação.
+Execute o comando abaixo a partir do diretório root do seu tensorflow
+```$ cd tensorflow ```
+
+```$ bazel build //tensorflow/lite:libtensorflowLite.so --crosstool_top=//external:android/crosstool --cpu=arm64-v8a --host_crosstool_top=@bazel_tools//tools/cpp:toolchain --cxxopt="-std=c++11"```
+
+O comando acima irá comilar o arquivo para a arquiterura ```arm64-v8a```, se voce precisar compilar para outras arquiteturas basta alterar o ```--cpu=arm64-8a``` para a arquitetura desejada como ```--cpu=x86_64``` por exemplo.
+
+Quando executei o comando acima em minha máquina, recebi um erro referente a existência do arquivo ```.bazelrc```. Tive que deletar esse arquivo, e executer novamento o passo de configuração do arquivo ```configure``` com isso o bazel irá criar um novo arquivo. Você pode encontrar o arquivo ```.tf_configure.bazelrc```.
