@@ -18,9 +18,9 @@ Para seguir com a compilação corretamente você precisará dos arquivos e vers
 * Tensorflow 1.14.0
 
 ### Instalação
-1. Instale o ```Bazel``` seguindo as instruções do site oficial [aqui](https://docs.bazel.build/versions/master/install-windows.html). Nesse site também é explicado a instalçao e configuração do ```MSYS64```.
+#__1__. Instale o ```Bazel``` seguindo as instruções do site oficial [aqui](https://docs.bazel.build/versions/master/install-windows.html). Nesse site também é explicado a instalçao e configuração do ```MSYS64```.
 
-2. Clone o repositório oficial do Tensorflow v1.14.0 [obtido aqui](https://github.com/tensorflow/tensorflow/releases/tag/v1.14.0). Se você clonar sem especificar a versão, será feito o clone da vesão mais recente na ```brach master``` do tensorflow 2.x. Logo, especifique a brach da versão 1.14.0 dando ```checkout``` como no exemplo(``` git checkout branch_name # r1.9, r1.10, etc.```) ou siga direto por [aqui](https://github.com/tensorflow/tensorflow/releases/tag/v1.14.0).
+__2__. Clone o repositório oficial do Tensorflow v1.14.0 [obtido aqui](https://github.com/tensorflow/tensorflow/releases/tag/v1.14.0). Se você clonar sem especificar a versão, será feito o clone da vesão mais recente na ```brach master``` do tensorflow 2.x. Logo, especifique a brach da versão 1.14.0 dando ```checkout``` como no exemplo(``` git checkout branch_name # r1.9, r1.10, etc.```) ou siga direto por [aqui](https://github.com/tensorflow/tensorflow/releases/tag/v1.14.0).
 
 3. Acesse o diretório root do tensorflow e edite o arquivo ```WORKSPACE``` adicionando no final do arquivo as linhas do script abaixo. Altere os ```path``` do SDK e NDK de acordo com a sua arvore de diretórios. Observe que a ```api_level``` está configurada para ```api_level=18```. 
 ```
