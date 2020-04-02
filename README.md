@@ -18,5 +18,49 @@ Para seguir com a compilação corretamente você precisará dos arquivos e vers
 * Tensorflow 1.14.0
 
 ### Instalação
-Clone o repositório oficial do Tensorflow v1.14.0 [obtido aqui](https://github.com/tensorflow/tensorflow/releases/tag/v1.14.0). Se você clonar sem especificar a versão, será feito o clone da vesão mais recente na ```brach master``` do tensorflow. Logo, especifique a brach da versão 1.14.0 ``` git checkout branch_name # r1.9, r1.10, etc.``` ou siga direto por [aqui](https://github.com/tensorflow/tensorflow/releases/tag/v1.14.0).
+Instale o ```Bazel``` seguindo as instruções do site oficial [aqui](https://docs.bazel.build/versions/master/install-windows.html). Nesse site também é explicado a instalçao e configuração do ```MSYS64```.
 
+Clone o repositório oficial do Tensorflow v1.14.0 [obtido aqui](https://github.com/tensorflow/tensorflow/releases/tag/v1.14.0). Se você clonar sem especificar a versão, será feito o clone da vesão mais recente na ```brach master``` do tensorflow 2.x. Logo, especifique a brach da versão 1.14.0 dando ```checkout``` como no exemplo(``` git checkout branch_name # r1.9, r1.10, etc.```) ou siga direto por [aqui](https://github.com/tensorflow/tensorflow/releases/tag/v1.14.0).
+
+Acesse o diretório root do tensorflow e edite o arquivo ```WORKSPACE``` adicionando no final do arquivo as linhas do script abaixo. Altere os ```path``` do SDK e NDK de acordo com a sua arvore de diretórios. Observe que a ```api_level``` está configurada para ```api_level=18```. 
+```
+android_sdk_repository(
+   name = "androidsdk",
+   api_level = 28,
+   build_tools_version = "28.0.3",
+   path = "xxxx/Android/sdk",
+)
+
+android_ndk_repository(
+   name="androidndk",
+   path="xxx/ndk/18.1.5063045",
+   api_level=18
+)
+```
+Agora faça a configuração do arquivo ```configure``` para que o bazel siga as instruções. Em um terminal ```bash.exe``` (Git bash, MSYS, MingGW) execulte ```python configure.py``` ou ```python3 configure.py```. Em seguida será solicitado algumas informação de confimação, faça como no exemplo abaixo:
+
+*Com suporte para GPU NVIDIA
+```
+Please specify the location of python. [Default is X:\ProgramFiles\Python3\python.exe]:
+
+Found possible Python library paths:
+  X:\ProgramFiles\Python3\lib\site-packages
+Please input the desired Python library path to use.  Default is [X:\ProgramFiles\Python3\lib\site-packages]
+
+Do you wish to build TensorFlow with XLA JIT support? [y/N]: y
+XLA JIT support will be enabled for TensorFlow.
+
+Do you wish to build TensorFlow with ROCm support? [y/N]: N
+No ROCm support will be enabled for TensorFlow.
+
+Do you wish to build TensorFlow with CUDA support? [y/N]: Y
+CUDA support will be enabled for TensorFlow.
+
+Please specify a list of comma-separated CUDA compute capabilities you want to build with.
+You can find the compute capability of your device at: https://developer.nvidia.com/cuda-gpus.
+Please note that each additional compute capability significantly increases your build time and binary size, and that TensorFlo          w only supports compute capabilities >= 3.5 [Default is: 3.5,7.0]: 7.0
+
+
+Please specify optimization flags to use during compilation when bazel option "--config=opt" is specified [Default is /arch:AVX          ]:
+```
+*Para suporte apenas com CPU selecione ```Do you wish to build TensorFlow with CUDA support? N```.
