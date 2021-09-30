@@ -2,7 +2,7 @@
 
 Tutorial para a compilação das bibliotecas do TFlite para serem incluídas no projeto Android. O processo foi realizado utilizando o [**Ubuntu 18.04 LTS**](https://releases.ubuntu.com/18.04.4/), sem instalação de componentes auxiliares.
 ## 1. Download e instalação de dependências
-Para realizar o *download* e instalação das dependências, será necessário seguir os passos a seguir ou executar o script `download.sh` e pular para a sessão **2. Compilação Tensorflow**. Para seguir o caminho pela execução do *script* é importante atentar para as versões descritas no código.
+Para realizar o *download* e instalação das dependências, será necessário seguir os passos a seguir 
 
 ### 1.1. Compilação
 [![Python badge](https://img.shields.io/badge/Python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
