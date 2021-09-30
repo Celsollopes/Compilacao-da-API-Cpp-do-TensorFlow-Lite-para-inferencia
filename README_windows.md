@@ -1,4 +1,4 @@
-# Compilação da API C++ para inferencia com TensorFlow Lite
+# Compilação da API C++ para inferencia com TensorFlow Lite (Windows)
 Este arquivo descreve os passos para fazer a compilação da API C++ do Tensorflow Lite para inferência com NDK Android.
 
 ### Objetivo
